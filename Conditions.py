@@ -45,3 +45,14 @@ elif b > c:
     print(b, "is largest")
 else:
     print(c, "is largest")
+
+a = 5
+b = 5
+c = 5
+
+if a == b == c:
+    print("Equilateral")
+elif a == b or b == c or a == c:
+    print("Isosceles")
+else:
+    print("Scalene")
