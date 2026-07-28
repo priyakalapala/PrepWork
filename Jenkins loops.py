@@ -59,3 +59,22 @@ pipeline {
         }
     }
 }
+
+pipeline {
+    agent any
+    stages {
+        stage ("Map example") {
+            steps {
+                script {
+                   def employee = [
+                    Name : "priya"
+                    Role : "DevOps"
+                    City : "Phoenix"
+                           ]
+                employee.each {key, value -> echo "${key} : ${value}"
+                }
+                }
+            }
+        }
+    }
+}
