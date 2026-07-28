@@ -126,3 +126,26 @@ pipeline {
         }
     }
 }
+
+
+pipeline {
+    agent any
+    stages {
+        stage('Even count') {
+        steps {
+            script {
+                def numbers = [10, 20, 30, 40 ,50]
+                int count = 0
+                for (num in numbers) {
+                    if (num%2 == 0) {
+                        count++
+                    }
+
+                }
+                echo "Even count = ${count}"
+            }
+        }
+            
+        }
+    }
+}
