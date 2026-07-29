@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    
+    environment {
+        APP_NAME   = "Priya_App"
+        APP_ENV    = "Production"
+        REGION     = "us-east-1"
+        BUILD_TYPE = "Debug"
+    }
+    stages {
+        stage('Print Variables') {
+            steps {
+                echo "APP_NAME  = ${env.APP_NAME}"
+                echo "APP_ENV   = ${env.APP_ENV}"
+                echo "REGION    = ${env.REGION}"
+                echo "BUILD_TYPE = ${env.BUILD_TYPE}"
+            }
+        }
+    }
+}
