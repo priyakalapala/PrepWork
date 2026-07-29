@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     environment {
         APP_NAME = "Inventory"
         ENV = "QA"
@@ -29,7 +28,7 @@ pipeline {
 
                          case "QA":
                          echo "Testing Mode"
-                         break
+                           break
 
                          case "PROD":
                             echo "Production Mode"
