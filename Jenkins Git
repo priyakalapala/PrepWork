@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+     stages {
+        stage('Checkout from GitHub') {
+            steps {
+                git(
+                    branch: 'main',
+                    url: 'https://github.com/priyakalapala/MyProject2.git',
+                    credentialsId: 'github-creds-id'
+                )
+            }
+        }
+
+        stage('first stage') {
+            steps {
+                echo "build"
+            }
+        }
+     
+        stage('second stage') {
+            steps {
+                echo "test"
+            }
+        }
+    
+        stage('third stage') {
+            steps {
+                echo "deploy"
+            }
+        }
+    }
+    triggers {
+        cron('H 10 1 * *')
+    }
+}
+
+
+pipeline {
+    agent any
+    stages {
+        stage ('check environment') {
+            steps {
+                script {
+                    env.BRANCH_NAME = "develop"
+                    if(env.BRANCH_NAME == "main") {
+                        echo "deploying to production"
+                    }
+                        else {
+                            echo "deploying to test environment"
+                        }
+
+                    }
+                    
+                }
+            }
+        }
+    }
