@@ -1,0 +1,148 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('H * * * *')
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "build periodically schedule build"
+            }
+        }
+    }
+}
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building..."
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
+
+
+pipeline {
+    agent any
+    environment {
+       
+        TestCrec = credentials('kartheek-id') 
+    }
+    stages {
+        stage('Use Secret') {
+            steps {
+                
+                 echo "**************Using secret: TestCrec"
+            }
+        }
+    }
+}
+
+
+pipeline {
+    agent any
+    triggers {
+        pollSCM('H/18 * 2 3 3')
+    }
+    stages {
+        stage('build') {
+            steps {
+                echo "Polling SCM for building"
+            }
+        } 
+    }
+}
+        
+
+pipeline {
+    agent any
+    environment {
+        SECRET_KEY = credentials('priya-id') 
+    }
+    stages {
+        stage('Use Secret Key') {
+        steps {
+             echo "Using secret: $SECRET_KEY"
+            }
+        }
+    }
+}    
+    
+    
+pipeline {
+    agent any
+    environment {
+        SECRET_KEY = credentials('kartheek-id')
+    }
+    stages {
+        stage('Use Secret key') {
+            steps {
+                echo "Using secret: $SECRET_KEY"
+            }
+        }
+    }
+}
+
+
+    
+    
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Dev Env') {
+            steps {
+                echo 'Build'
+            }
+        }
+
+        stage('QA Env') {
+            steps {
+                echo 'Test'
+            }
+        }
+
+        stage('UAT Env') {
+            steps {
+                echo 'Test'
+            }
+        }
+    }
+
+    post {
+        success {
+            emailext(
+                to: 'priyakalapala@gmail.com',
+                subject: 'Build Successful',
+                body: 'Hi Team, The Slack notification build is successful.'
+            )
+        }
+
+        failure {
+            emailext(
+                to: 'priyakalapala@gmail.com',
+                subject: 'Build Failed',
+                body: 'Hi Team, The Slack notification build has failed.'
+            )
+        }
+    }
+}
+
+
+    
+    
+
+
