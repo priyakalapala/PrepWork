@@ -42,3 +42,14 @@ class Trip:
         return self.d1+self.d2+self.d3
 trip = Trip(10, 20, 30)
 print(trip.get_Total())
+
+class Student:
+    def __init__(self, marks):
+        self.marks = marks
+    def get_Total(self):
+        total = 0
+        for m in self.marks:
+            total = total+m
+            return total
+s= Student([85, 90, 95])
+print(s.get_Total())
