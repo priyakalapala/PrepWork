@@ -215,3 +215,18 @@ pipeline {
 }
 
 
+pipeline {
+    agent any
+
+    stages {
+        stage('Squares') {
+            steps {
+                script {
+                    for (int i = 1; i <= 10; i++) {
+                        echo "${i} Square = ${i * i}"
+                    }
+                }
+            }
+        }
+    }
+}
