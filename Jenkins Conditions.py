@@ -149,3 +149,69 @@ pipeline {
         }
     }
 }
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Odd count') {
+            steps {
+                script {
+                    def numbers = [10, 15, 20, 25, 30]
+                    int count = 0
+
+                    for (num in numbers) {
+                        if (num % 2 != 0) {
+                            count++
+                        }
+                    }
+
+                    echo "Odd count = ${count}"
+                }
+            }
+        }
+    }
+}
+
+pipeline {
+    agent any
+    stages {
+        stage('positive count') {
+            steps {
+                script {
+                    def num = [10, 12, 14, 18, 19]
+                    int count = 0
+                    for (num in numbers) {
+                       if (num > 0) {
+                            count++
+                        }
+                    }
+                      echo "Positive count = ${count}"
+                    }
+                }
+            }
+        }
+    }
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Multiples of 5') {
+            steps {
+                script {
+                    def numbers = [11, 15, 20, 33, 40, 51]
+
+                    for (num in numbers) {
+                        if (num % 5 == 0) {
+                            echo "${num}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
