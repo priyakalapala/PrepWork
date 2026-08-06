@@ -15,3 +15,46 @@ module "ec2_web" {
   subnet_id      = "subnet-0abcd1234"
 }
 
+variable "ports" {
+    type = list(number)
+    default = [22, 80, 443]
+}
+
+#To create 3 EC2 instances
+resource "aws_instance" "server" {
+    count = 3
+    ami = "ami_"
+    instance_type = "t2.micro"
+
+    tags = {
+        Name = "Server-${count.index}"
+    }
+}
+
+variable "ports" {
+    default = [22, 80, 443]
+}
+resource "aws_security_group_rule" "allow" {
+    count = length(var.ports)
+
+    type = "ingress"
+    from_port = var.ports[count.index]
+    to_port = var.ports[count.index]
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    security_group_id = "sg-12345678"
+}
+
+variable "ports" {
+    default = [80, 22]
+}
+
+dynamic "ingress" {
+    for_each = var.ports
+}
+content {
+    from_port = ingress.value
+    to_port =   ingress.value
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+}
