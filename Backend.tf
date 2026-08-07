@@ -58,3 +58,13 @@ content {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
 }
+
+variable "instance count" {
+    type = number
+    default = 2
+}
+resource "aws_instance" web {
+    count = var.instance_count
+    ami = "ami-"
+    intsnce_type = "t2.micro"
+}
