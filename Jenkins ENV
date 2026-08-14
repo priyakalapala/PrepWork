@@ -18,3 +18,92 @@ pipeline {
         }
     }
 }
+
+
+pipeline {
+    agent any
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'kalapalaMain', description: 'Branch to build')
+        string(name: 'First_Name', defaultValue: 'Lakshmi Priya', description: 'Branch to build')
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Building branch: ${params.BRANCH_NAME}"
+            }
+        }
+         stage('Deploy') {
+            steps {
+                echo "Deploying branch to environment: ${params.First_Name}"
+            }
+        }
+    }
+}
+
+pipeline {
+agent any
+stages {
+stage('Build') {
+    steps {
+        withEnv(["APP_NAME=MyApp", "APP_ENV=Test"]) {
+             echo "Building $APP_NAME in $APP_ENV environment"
+        }
+    }
+}
+}
+}
+
+pipeline {
+    agent any
+    stages {
+        stage('build') {
+            steps {
+                withEnv(["APP_NAME =priya", "APP_ENV = Deploy"]) {
+                    echo "Building $APP_NAME in $APP_ENV environment"
+                }
+            }
+        }
+
+    }
+}
+    
+pipeline {
+agent any
+stages {
+     stage('Branch Deploy') {
+         steps {
+             script {
+                 
+            if (env.BRANCH_NAME == "main") {
+            withEnv(["DEPLOY_ENV=production"]) {
+                echo "Deploying to $DEPLOY_ENV"
+            }
+        } 
+        else {
+            withEnv(["DEPLOY_ENV=staging"]) {
+                echo "Deploying to $DEPLOY_ENV"
+            }
+        }
+    }
+ }
+}
+}
+}
+
+
+pipeline {
+agent any
+stages {
+
+stage('Build') {
+    steps {
+         withEnv(["USERNAME=admin", "PASSWORD=secret123"]) {
+            echo "Logging in with $USERNAME and password $PASSWORD"
+        }
+    }
+}
+}
+}
+
+   
+
