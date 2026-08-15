@@ -46,4 +46,42 @@ num= [15, 22, 43, 55, 32]
 for i in num:
     if num% 2 !=0:
         print("even number")
-    
+    else:
+    print("odd number")
+
+numbers = [10, 20, 30, 40, 50]
+count = 0
+for num in numbers:
+    if num%2 == 0:
+        count = count+1
+
+print("Even count =", count)
+
+numbers = [10, 20, 10, 30, 20, 40, 30]
+unique = list(set(numbers))
+print(unique)
+
+numbers = [10, 50, 30, 80, 20]
+largest = numbers[0]
+for num in numbers:
+    if num > largest:
+        largest = num
+print("Largest =", largest)
+
+numbers = [20, 13, 17, 29, 16]
+smallest = numbers[0]
+for num in numbers:
+    if num < smallest:
+        smallest = num
+print("smallest =", smallest)  
+
+numbers = [1, 2, 3, 4, 5, 7]
+squares = [num * num for num in numbers]
+print(squares)
+
+
+numbers = [1, 2, 3, 4, 5, 7, 11]
+total = 0
+for num in numbers:
+    total = total+num
+print(total)
